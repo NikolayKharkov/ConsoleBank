@@ -1,6 +1,6 @@
 package ru.kharkov.models;
 
-import ru.kharkov.dto.UserEntity;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,30 +9,18 @@ import java.util.Objects;
 /**
  * Класс отображает модель данных Пользователя
  */
+@Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class User {
 
-    private final int id;
+    private int id;
 
-    private final String login;
+    private String login;
 
-    private List<Account> accountList = new ArrayList<>();
-
-    public User(UserEntity userEntity) {
-        this.id = userEntity.getId();
-        this.login = userEntity.getLogin();
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setAccountList(List<Account> accountList) {
-        this.accountList = accountList;
-    }
-
-    public void addAccount(Account account) {
-        this.accountList.add(account);
-    }
+    private List<Account> accounts = new ArrayList<>();
 
     @Override
     public boolean equals(Object o) {
@@ -52,7 +40,7 @@ public class User {
         return "User{" +
                 "id=" + id +
                 ", login='" + login + '\'' +
-                ", accountList=" + accountList +
+                ", accountList=" + accounts +
                 '}';
     }
 }

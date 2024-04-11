@@ -27,7 +27,7 @@ public class AccountWithDrawOperation implements Operation {
     public void doOperation() {
         int accountId = input.askInt(ASK_ACCOUNT_ID);
         double amount = input.askDouble(ASK_AMOUNT);
-        bankService.withDrawAccount(accountId, amount);
+        bankService.withdrawAccount(accountId, amount);
         System.out.println(String.format("Amount %s deposited to account ID: %s", amount, accountId));
     }
 

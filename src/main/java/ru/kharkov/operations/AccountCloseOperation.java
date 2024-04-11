@@ -2,9 +2,9 @@ package ru.kharkov.operations;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ru.kharkov.dto.AccountEntity;
 import ru.kharkov.enums.ConsoleOperationType;
 import ru.kharkov.interfaces.Operation;
+import ru.kharkov.models.Account;
 import ru.kharkov.services.BankService;
 import ru.kharkov.utils.Input;
 
@@ -25,8 +25,8 @@ public class AccountCloseOperation implements Operation {
     @Override
     public void doOperation() {
         int accountId = input.askInt(CLOSE_ACCOUNT_HEADER);
-        AccountEntity accountEntity = bankService.closeAccount(accountId);
-        System.out.println(String.format("Account %s has been closed.", accountEntity.toString()));
+        Account accountIdEntity = bankService.closeAccount(accountId);
+        System.out.println(String.format("Account %s has been closed.", accountIdEntity.toString()));
     }
 
     @Override

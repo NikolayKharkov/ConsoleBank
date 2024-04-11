@@ -2,9 +2,10 @@ package ru.kharkov.operations;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ru.kharkov.dto.UserEntity;
+import ru.kharkov.entities.UserEntity;
 import ru.kharkov.enums.ConsoleOperationType;
 import ru.kharkov.interfaces.Operation;
+import ru.kharkov.models.User;
 import ru.kharkov.services.BankService;
 import ru.kharkov.utils.Input;
 
@@ -27,8 +28,8 @@ public class AccountCreateOperation implements Operation {
     @Override
     public void doOperation() {
         int userId = input.askInt(OPERATION_HEADER);
-        UserEntity userEntity = bankService.createAccount(userId);
-        System.out.printf((SUCCESSFUL_MESSAGE_FORMAT) + "%n", userEntity.getId(), userEntity.getLogin());
+        User user = bankService.createAccount(userId);
+        System.out.printf((SUCCESSFUL_MESSAGE_FORMAT) + "%n", user.getId(), user.getLogin());
     }
 
     @Override

@@ -1,6 +1,6 @@
 package ru.kharkov.interfaces.repositories;
 
-import ru.kharkov.models.Account;
+import ru.kharkov.entities.AccountEntity;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,36 +12,36 @@ public interface AccountsRepository {
 
     /**
      * Метод сохранения нового аккаунта
-     * @param account сохраняемый аккаунт
+     * @param accountEntity сохраняемый аккаунт
      * @return сохраненный аккаунт с присвоенным ID
      */
-    Account saveAccount(Account account);
+    AccountEntity saveAccount(AccountEntity accountEntity);
 
     /**
      * Метод для получения аккаунта по id
      * @param id аккаунта
      * @return optional искомого аккаунта
      */
-    Optional<Account> getAccountById(int id);
+    Optional<AccountEntity> getAccountById(int id);
 
     /**
      * Метод для получения списка аккаунтов пользователя
      * @param id пользовталя
-     * @return optional список всех аккаунтов пользователя
+     * @return список всех аккаунтов пользователя
      */
-    Optional<List<Account>> getUserAccounts(int id);
+    List<AccountEntity> getUserAccounts(int id);
 
     /**
      * Метод для удаления аккаунта по id
      * @param id аккаунта
      * @return optional удаленного аккаунта
      */
-    Optional<Account> deleteAccount(int id);
+    Optional<AccountEntity> deleteAccount(int id);
 
     /**
      *  Метод для обновления аккаунта.
-     * @param account обновляемый аккаунт
+     * @param accountEntity обновляемый аккаунт
      * @return optional аккаунта
      */
-    Optional<Account> updateAccount(Account account);
+    AccountEntity updateAccount(AccountEntity accountEntity);
 }
