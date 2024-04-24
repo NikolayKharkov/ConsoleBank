@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.kharkov.enums.ConsoleOperationType;
 import ru.kharkov.interfaces.Operation;
-import ru.kharkov.utils.CustomBusinessException;
 import ru.kharkov.utils.Input;
 
 import java.util.List;
@@ -37,19 +36,21 @@ public class ConsoleMainMenu {
     public void init() {
         createMainMenu();
         while(true) {
+            String inputOperationName = input.askStr(this.mainMenu);
+            if (EXIT_OPERATION.equals(inputOperationName)) {
+                break;
+            }
+            Operation operation = null;
             try {
-                String inputOperationName = input.askStr(this.mainMenu);
-                if (EXIT_OPERATION.equals(inputOperationName)) {
-                    break;
-                }
-                Operation operation = operations.get(ConsoleOperationType.valueOf(inputOperationName));
+                operation = operations.get(ConsoleOperationType.valueOf(inputOperationName));
+            } catch (IllegalArgumentException illegalArgumentException) {
+                System.out.println("Error. Input not exist operation");
+            }
+            try {
                 operation.doOperation();
             } catch (NumberFormatException numberFormatException) {
                 System.out.println("Not correct input. Expect integer.");
             } catch (IllegalArgumentException illegalArgumentException) {
-                System.out.println("Error. Input not exist operation");
-            } catch (CustomBusinessException customBusinessException) {
-                System.out.println(customBusinessException.getMessage());
             }
         }
         System.out.println("APPLICATION HAS FINISHED");
@@ -76,4 +77,5 @@ public class ConsoleMainMenu {
                 .append(lineSeparator);
         this.mainMenu = mainMenuBuilder.toString();
     }
+
 }

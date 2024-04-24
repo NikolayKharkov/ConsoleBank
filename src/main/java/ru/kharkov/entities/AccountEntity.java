@@ -1,31 +1,37 @@
-package ru.kharkov.models;
+package ru.kharkov.entities;
 
+import jakarta.persistence.*;
 import lombok.*;
 
-/**
- * Класс отображает модель данных Пользовательского аккаунта
- */
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
+@Entity
+@Table(name = "accounts")
 @Builder
-public class Account {
+public class AccountEntity {
 
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private int userId;
-
+    @Column(name = "amount")
     private double moneyAmount;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private UserEntity userEntity;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Account account = (Account) o;
+        AccountEntity accountEntity = (AccountEntity) o;
 
-        return id == account.id;
+        return id == accountEntity.id;
     }
 
     @Override
@@ -37,7 +43,7 @@ public class Account {
     public String toString() {
         return "Account{" +
                 "id=" + id +
-                ", userId=" + userId +
+                ", userId=" + this.userEntity.getId() +
                 ", moneyAmount=" + moneyAmount +
                 '}';
     }

@@ -2,8 +2,10 @@ package ru.kharkov.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.kharkov.dto.UserEntity;
+import ru.kharkov.entities.UserEntity;
+import ru.kharkov.interfaces.UserMapper;
 import ru.kharkov.interfaces.repositories.UsersRepository;
+import ru.kharkov.mappers.UserMapperImpl;
 import ru.kharkov.models.User;
 
 import java.util.List;
@@ -20,21 +22,27 @@ public class UserService {
     @Autowired
     private UsersRepository usersRepository;
 
-    public UserEntity createUser(String userLogin) {
+    @Autowired
+    private UserMapper userMapper;
+
+    public User createUser(String userLogin) {
         UserEntity userEntity = new UserEntity();
         userEntity.setLogin(userLogin);
-        return this.usersRepository.saveUser(userEntity);
+        UserEntity result = this.usersRepository.saveUser(userEntity);
+        return userMapper.toUserModel(result);
     }
 
     public List<User> getAllUsers() {
         return this.usersRepository
                 .getAllUsers()
                 .stream()
-                .map(User::new)
+                .map(userMapper::toUserModel)
                 .collect(Collectors.toList());
     }
 
-    public Optional<UserEntity> getUserById(int id) {
-        return this.usersRepository.getUserById(id);
+    public User getUserByIdOrThrow(int id) {
+        Optional<UserEntity> resultOptional = this.usersRepository.getUserById(id);
+        return resultOptional.map(userMapper::toUserModel)
+                .orElseThrow(() -> new IllegalArgumentException(String.format("Account with ID %s not found", id)));
     }
 }

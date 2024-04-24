@@ -1,6 +1,6 @@
 package ru.kharkov.interfaces.repositories;
 
-import ru.kharkov.dto.UserEntity;
+import ru.kharkov.entities.UserEntity;
 
 import java.util.List;
 import java.util.Optional;
