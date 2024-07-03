@@ -16,6 +16,11 @@ public class App {
 
             context.getBean(ConsoleMainMenu.class).init();
             System.out.println("Hello world!!!");
+            System.out.println("Hello world!!!");
+            System.out.println("Hello world!!!");
+            System.out.println("Hello world!!!");
+            System.out.println("Hello world!!!");
+            System.out.println("Hello world!!!");
         }
 
     }
