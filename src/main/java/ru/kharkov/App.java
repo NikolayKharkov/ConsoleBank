@@ -15,6 +15,7 @@ public class App {
                 SpringConfig.class)) {
 
             context.getBean(ConsoleMainMenu.class).init();
+            System.out.println("Hello world!!!");
         }
 
     }
